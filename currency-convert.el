@@ -48,7 +48,7 @@
 (defun currency-convert-update-rates ()
   "Get the latest exchange rates from the internet.
 
-The rates are saves into a local file in `user-emacs-directory'
+The rates are saved into a local file in `user-emacs-directory'
 so they don't need to be updated on future Emacs runs. However,
 it is okay to update at any time to get the latest rates."
   (interactive)
@@ -86,9 +86,12 @@ it is okay to update at any time to get the latest rates."
 (defun currency-convert (amount from-currency)
   "Convert AMOUNT from FROM-CURRENCY to other known currencies.
 
+AMOUNT is an integer or floating point number. FROM-CURRENCY is
+the uppercase three-letter currency as a string.
+
 Due to inaccuracies in exchange rate data and floating point
 arithmetic, the conversion is only suitable for everyday
-purposes.  Do not use it for business or investment decisions.
+purposes. Do not use it for business or investment decisions.
 
 The return value is a list of (CURRENCY . AMOUNT) pairs.
 
