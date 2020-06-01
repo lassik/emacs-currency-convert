@@ -78,6 +78,7 @@
        (let* ((currency (car pair)) (amount (cdr pair)))
          (insert (format "%10.2f %s\n" amount currency)))))))
 
+;;;###autoload
 (defun currency-convert (amount from-currency)
   "Convert AMOUNT from FROM-CURRENCY to TO-CURRENCY."
   (interactive
