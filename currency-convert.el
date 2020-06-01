@@ -86,12 +86,12 @@ it is okay to update at any time to get the latest rates."
 (defun currency-convert (amount from-currency)
   "Convert AMOUNT from FROM-CURRENCY to other known currencies.
 
-AMOUNT is an integer or floating point number. FROM-CURRENCY is
+AMOUNT is an integer or floating point number.  FROM-CURRENCY is
 the uppercase three-letter currency as a string.
 
 Due to inaccuracies in exchange rate data and floating point
 arithmetic, the conversion is only suitable for everyday
-purposes. Do not use it for business or investment decisions.
+purposes.  Do not use it for business or investment decisions.
 
 The return value is a list of (CURRENCY . AMOUNT) pairs.
 
