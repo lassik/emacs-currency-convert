@@ -46,7 +46,11 @@
     (currency-convert--load-rates)))
 
 (defun currency-convert-update-rates ()
-  "Get the latest exchange rates from the internet."
+  "Get the latest exchange rates from the internet.
+
+The rates are saves into a local file in `user-emacs-directory'
+so they don't need to be updated on future Emacs runs. However,
+it is okay to update at any time to get the latest rates."
   (interactive)
   (let* ((url-show-status nil) (url-mime-accept-string "application/json"))
     (with-temp-buffer
@@ -80,7 +84,17 @@
 
 ;;;###autoload
 (defun currency-convert (amount from-currency)
-  "Convert AMOUNT from FROM-CURRENCY to TO-CURRENCY."
+  "Convert AMOUNT from FROM-CURRENCY to other known currencies.
+
+Due to inaccuracies in exchange rate data and floating point
+arithmetic, the conversion is only suitable for everyday
+purposes.  Do not use it for business or investment decisions.
+
+The return value is a list of (CURRENCY . AMOUNT) pairs.
+
+When used as an interactive command, the conversions are
+displayed in the *Currency* buffer.  If that buffer already
+exists, its contents are replaced with the new conversion."
   (interactive
    (progn (currency-convert--ensure-rates)
           (let* ((amount (string-to-number (read-string "Amount: ")))
