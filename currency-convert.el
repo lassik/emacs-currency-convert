@@ -1,3 +1,25 @@
+;;; currency-convert.el --- Currency converter -*- lexical-binding: t -*-
+;;
+;; SPDX-License-Identifier: ISC
+;; Author: Lassi Kortela <lassi@lassi.io>
+;; URL: https://github.com/lassik/emacs-currency-convert
+;; Package-Requires: ((emacs "24.4") (cl-lib "0.5"))
+;; Package-Version: 0.1.0
+;; Keywords: comm convenience i18n
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; Commentary:
+;;
+;; Convert amounts of money from one currency to another in Emacs.
+;;
+;; Exchange rates are downloaded from exchangeratesapi.io. They ought
+;; to be accurate enough for everyday purposes. It goes without saying
+;; that you should not rely on this package for investment or business
+;; decisions.
+;;
+;;; Code:
+
 (require 'json)
 
 (defvar currency-convert-rates nil)
@@ -51,3 +73,5 @@
            (insert (format "%10.2f %s\n" to-amount to-currency))))))))
 
 (provide 'currency-convert)
+
+;;; currency-convert.el ends here
