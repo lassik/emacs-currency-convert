@@ -60,7 +60,10 @@ up-to-the-minute rates are only offered by paid services."
     (with-temp-buffer
       (url-insert-file-contents "https://api.exchangeratesapi.io/latest")
       (write-region nil nil (currency-convert--rates-file))))
-  (currency-convert--load-rates))
+  (currency-convert--load-rates)
+  (let ((date (cdr (assoc 'date currency-convert--rates))))
+    (message "Now using exchange rates from %s" date)
+    date))
 
 (defun currency-convert--currency-names ()
   "Internal helper to list all known currency names."
