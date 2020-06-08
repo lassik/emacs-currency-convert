@@ -50,7 +50,11 @@
 
 The rates are saved into a local file in `user-emacs-directory'
 so they don't need to be updated on future Emacs runs.  However,
-it is okay to update at any time to get the latest rates."
+it is okay to update at any time to get more recent rates.
+
+The rates are downloaded from the free site exchangeratesapi.io.
+They may lag a few days behind the latest rates.  Downloads of
+up-to-the-minute rates are only offered by paid services."
   (interactive)
   (let* ((url-show-status nil) (url-mime-accept-string "application/json"))
     (with-temp-buffer
@@ -100,9 +104,10 @@ Due to inaccuracies in exchange rate data and floating point
 arithmetic, the conversion is only suitable for everyday
 purposes.  Do not use it for business or investment decisions.
 
-When used as an interactive command, the conversion is displayed
-in the *Currency* buffer.  If that buffer already exists, its
-contents are replaced with the new conversion.
+When used as an interactive command, AMOUNT and FROM-CURRENCY are
+input into the minibuffer.  The conversion is displayed in the
+*Currency* buffer.  If that buffer already exists, its contents
+are replaced with the new conversion.
 
 When called from Lisp, AMOUNT is an integer or floating point
 number.  FROM-CURRENCY is the uppercase three-letter currency as a
