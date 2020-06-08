@@ -85,6 +85,13 @@ it is okay to update at any time to get the latest rates."
        (let* ((currency (car pair)) (amount (cdr pair)))
          (insert (format "%10.2f %s\n" amount currency)))))))
 
+(defun currency-convert--parse-amount (string)
+  "Internal helper to parse STRING as an amount of money."
+  (save-match-data
+    (if (string-match "^-?[0-9]+\\(\\.[0-9][0-9]\\)?$" string)
+        (string-to-number string)
+      (error "Amount should be of the form [-]123.45"))))
+
 ;;;###autoload
 (defun currency-convert (amount from-currency)
   "Convert AMOUNT from FROM-CURRENCY to other known currencies.
@@ -102,7 +109,8 @@ number.  FROM-CURRENCY is the uppercase three-letter currency as a
 string.  The return value is a list of (CURRENCY . AMOUNT) pairs."
   (interactive
    (progn (currency-convert--ensure-rates)
-          (let* ((amount (string-to-number (read-string "Amount: ")))
+          (let* ((amount (currency-convert--parse-amount
+                          (read-string "Amount: ")))
                  (from-currency
                   (completing-read
                    "Currency: " (currency-convert--currency-names) nil t)))
