@@ -78,6 +78,7 @@ it is okay to update at any time to get the latest rates."
    "*Currency*" nil nil
    (let ((inhibit-read-only t))
      (erase-buffer)
+     (special-mode)
      (dolist (pair alist (current-buffer))
        (let* ((currency (car pair)) (amount (cdr pair)))
          (insert (format "%10.2f %s\n" amount currency)))))))
