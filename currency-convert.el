@@ -70,7 +70,9 @@ it is okay to update at any time to get the latest rates."
   (if (equal currency (cdr (assoc 'base currency-convert--rates))) 1
     (cdr (or (assoc currency (cdr (assoc 'rates currency-convert--rates))
                     (lambda (a b) (equal (symbol-name a) b)))
-             (error "No such currency: %s" currency)))))
+             (if (equal currency "")
+                 (error "No currency given")
+               (error "No such currency: %s" currency))))))
 
 (defun currency-convert--display-alist (alist)
   "Internal helper to display ALIST of currency-amount pairs."
