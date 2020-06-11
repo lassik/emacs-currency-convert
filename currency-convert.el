@@ -83,9 +83,7 @@ up-to-the-minute rates are only offered by paid services."
   (if (equal currency (cdr (assoc 'base currency-convert--rates))) 1
     (cdr (or (assoc currency (cdr (assoc 'rates currency-convert--rates))
                     (lambda (a b) (equal (symbol-name a) b)))
-             (if (equal currency "")
-                 (error "No currency given")
-               (error "No such currency: %s" currency))))))
+             (error "No such currency: %S" currency)))))
 
 (defun currency-convert--display-alist (alist)
   "Internal helper to display ALIST of currency-amount pairs."
@@ -135,9 +133,13 @@ The return value is a list of (CURRENCY . AMOUNT) pairs."
                                 nil
                                 'currency-convert-amount-history)))
                  (from-currency
-                  (completing-read "From currency: "
-                                   currencies nil t nil
-                                   'currency-convert-currency-history))
+                  (let ((from-currency
+                         (completing-read
+                          "From currency: "
+                          currencies nil t nil
+                          'currency-convert-currency-history)))
+                    (if (equal from-currency "")
+                        (error "No currency given") from-currency)))
                  (to-currencies
                   (let ((to-currency
                          (completing-read
