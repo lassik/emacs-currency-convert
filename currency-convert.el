@@ -23,6 +23,12 @@
 (require 'json)
 (require 'url)
 
+(defvar currency-convert-amount-history '()
+  "History for amounts typed into currency-convert.")
+
+(defvar currency-convert-currency-history '()
+  "History for currency names typed into currency-convert.")
+
 (defvar currency-convert--rates nil
   "Exchange rates for all known currencies.")
 
@@ -123,15 +129,21 @@ The return value is a list of (CURRENCY . AMOUNT) pairs."
   (interactive
    (progn (currency-convert--ensure-rates)
           (let* ((currencies (currency-convert--currency-names))
-                 (amount (currency-convert--parse-amount
-                          (read-string "Amount: ")))
+                 (amount
+                  (currency-convert--parse-amount
+                   (read-string "Amount: "
+                                nil
+                                'currency-convert-amount-history)))
                  (from-currency
                   (completing-read "From currency: "
-                                   currencies nil t))
+                                   currencies nil t nil
+                                   'currency-convert-currency-history))
                  (to-currencies
                   (let ((to-currency
-                         (completing-read "To currency (blank for all): "
-                                          currencies nil t)))
+                         (completing-read
+                          "To currency (blank for all): "
+                          currencies nil t nil
+                          'currency-convert-currency-history)))
                     (if (equal to-currency "")
                         currencies to-currency))))
             (list amount from-currency to-currencies))))
