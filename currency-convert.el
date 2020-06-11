@@ -133,21 +133,23 @@ The return value is a list of (CURRENCY . AMOUNT) pairs."
                                 nil
                                 'currency-convert-amount-history)))
                  (from-currency
-                  (let ((from-currency
+                  (let ((currency
                          (completing-read
                           "From currency: "
                           currencies nil t nil
                           'currency-convert-currency-history)))
-                    (if (equal from-currency "")
-                        (error "No currency given") from-currency)))
+                    (if (equal currency "")
+                        (error "No currency given")
+                      currency)))
                  (to-currencies
-                  (let ((to-currency
+                  (let ((currency
                          (completing-read
                           "To currency (blank for all): "
                           currencies nil t nil
                           'currency-convert-currency-history)))
-                    (if (equal to-currency "")
-                        currencies to-currency))))
+                    (if (equal currency "")
+                        currencies
+                      currency))))
             (list amount from-currency to-currencies))))
   (let* ((from-rate (currency-convert--currency-rate from-currency))
          (base-amount (/ amount from-rate))
