@@ -21,7 +21,10 @@
 ;;; Code:
 
 (require 'json)
+
 (require 'url)
+
+(defvar exchangerateio-api-key (getenv "EXCHANGERATEIO_API_KEY"))
 
 (defvar currency-convert-amount-history '()
   "History for amounts typed into currency-convert.")
@@ -64,7 +67,7 @@ up-to-the-minute rates are only offered by paid services."
   (interactive)
   (let* ((url-show-status nil) (url-mime-accept-string "application/json"))
     (with-temp-buffer
-      (url-insert-file-contents "https://api.exchangeratesapi.io/latest")
+      (url-insert-file-contents (concat "http://api.exchangeratesapi.io/v1/latest?access_key=" exchangerateio-api-key))
       (write-region nil nil (currency-convert--rates-file))))
   (currency-convert--load-rates)
   (let ((date (cdr (assoc 'date currency-convert--rates))))
