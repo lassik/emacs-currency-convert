@@ -64,7 +64,7 @@
 
 (defun currency-convert--update-from-exchangeratesapi ()
   "Internal helper to download exchange rates from `exchangeratesapi.io'."
-  (when currency-convert-exchangeratesapi-key
+  (unless (string-blank-p currency-convert-exchangeratesapi-key)
     (with-temp-buffer
       (let ((url-show-status nil)
             (url-mime-accept-string "application/json"))
