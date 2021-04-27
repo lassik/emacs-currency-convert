@@ -24,10 +24,10 @@
 (require 'url)
 
 (defvar currency-convert-amount-history '()
-  "History for amounts typed into currency-convert.")
+  "History for amounts typed into `currency-convert'.")
 
 (defvar currency-convert-currency-history '()
-  "History for currency names typed into currency-convert.")
+  "History for currency names typed into `currency-convert'.")
 
 (defvar currency-convert--rates nil
   "Exchange rates for all known currencies.")
